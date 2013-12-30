@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.png">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:900,500' rel='stylesheet' type='text/css'>
+
+    <title>Rescue Me by Ferran Pons</title>
+    <script src="js/libs/jquery-1.10.2.min.js"></script>
+    <script src="js/libs/three.min.js"></script>
+    <script src="js/libs/physi.js"></script>
+    <script src="js/libs/stats.min.js"></script>
+    <script src="js/libs/ColladaLoader.js"></script>
+    <script src="js/libs/OBJLoader.js"></script>
+    <script src="js/libs/PointerLockControls.js"></script>
+    <script src="js/libs/FirstPersonControls.js"></script>
+    <script src="js/libs/OrbitControls.js"></script>
+    <script src="js/libs/water-material.js"></script>
+
+    <!-- Terrain generator (https://github.com/jbouny/terrain-generator) -->
+    <script src="js/libs/FastBlur.js"></script>
+    <script src="js/libs/terraingen/blur.js"></script>
+    <script src="js/libs/terraingen/destructure.js"></script>
+    <script src="js/libs/terraingen/gameterrain.js"></script>
+    <script src="js/libs/terraingen/mountains2.js"></script>
+    <script src="js/libs/terraingen/perlinnoise.js"></script>
+    <script src="js/libs/terraingen/terraingen.js"></script>
+    <script src="js/libs/terraingen/mersenne-twister.js"></script>
+
+    <script src="js/game/utils.js"></script>
+    <script src="js/game/game.js"></script>
+    <script src="js/game/world.js"></script>
+    <script src="js/game/player.js"></script>
+    <script src="js/game/meshes.js"></script>
+</head>
+<body>
+
+    <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+        <div id="profile-header" style="overflow: hidden;">
+            <img src="assets/profile/my_face_color.png" style="position:absolute; top: 120px; left: 85px;" />
+            <img src="assets/profile/header_image.png"/> 
+        </div>
+        <div id="profile-content">
+            <p>
+                <span style="font-size: 24px;">FERRAN PONS</span><br/>
+                <span>Game Developer</span>
+            </p>
+            <div id="profile-content-buttons">
+                <a href="http://twitter.com/ponsaffair" class="btn btn-primary" style="margin-right: 10px;">FOLLOW</a>
+                <a href="mailto:info@retrowax.com?Subject=Hello%20Ferran" target="_top" class="btn btn-danger"  style="margin-left: 10px;">HIRE ME</a>
+            </div>
+            <p>
+                Senior Technician in Computer Applications Development with almost 12 years of experience as a programmer. My experience covers a lot of different kind of applications, from web app development to the desktop, mobile apps and video-games. But from all of this, my true passion is game development. My experience in this field falls on different scopes. I've worked two years at <strong>Electronic Arts</strong>, I've participated in some blockbuster games such as <em>Burnout Paradise</em>, <em>DeadSpace</em> and the <em>Skate</em> franchise. Also I've tried to start up my own indie video-game studio, labeled <a href="http://www.retrowax.com"><strong>Retrowax Games</strong></a> with which I've made a game called <a href="http://www.retrowax.com"><strong>Zombusters</strong></a> that it's published for the Xbox 360 and Windows Phone and PC.
+            </p>
+            <div id="profile-content-social">
+                <a href="http://www.facebook.com/ferran.pons"><img src="assets/profile/facebook.png" /></a>
+                <a href="http://twitter.com/ponsaffair"><img src="assets/profile/twitter.png" /></a>
+                <a href="http://google.com/+FerranPonsSanchez"><img src="assets/profile/googleplus.png" /></a>
+                <a href="http://es.linkedin.com/in/ferranpons/"><img src="assets/profile/linkedin.png" /></a>
+                <a href="https://github.com/ferranpons"><img src="assets/profile/github.png" /></a>
+            </div>
+        </div>
+    </nav>
+<!-- <div id="canvas-3d" class="viewer"></div> -->
+    <div id="content">
+        
+        <div id="blocker">
+
+            <div id="instructions">
+
+                <span style="font-size:40px">Click to play</span>
+                <br />
+                (W, A, S, D = Move, SPACE = Jump, MOUSE = Look around)
+            </div>
+
+        </div>
+    </div>
+
+    <button id="showLeft"><i class="fa fa-info-circle info"></i></button>
+
+    <!-- MAIN APP CODE -->
+    <script src="js/libs/classie.js"></script>
+    <script src="js/libs/modernizr.custom.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+            showLeft = document.getElementById( 'showLeft' ),
+            body = document.body;
+ 
+        showLeft.onclick = function() {
+            classie.toggle( this, 'active' );
+            classie.toggle( menuLeft, 'cbp-spmenu-open' );
+            classie.toggle( showLeft, 'info-opened' );
+        };
+
+    </script>
+
+</body>
+</html>

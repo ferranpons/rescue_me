@@ -1,0 +1,178 @@
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background-color: #ffffff;
+    margin: 0;
+    overflow: hidden;
+    font-family: arial;
+}
+
+#terrain {
+        position : absolute;
+        top : 10px;
+        left : 10px;
+        width : 100px;
+        height : 100px;
+        /*display : none;*/
+}
+
+#blocker {
+
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0,0,0,0.5);
+
+}
+
+#instructions {
+
+    width: 100%;
+    height: 100%;
+
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+
+    -webkit-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+    box-orient: horizontal;
+
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    box-pack: center;
+
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    box-align: center;
+
+    color: #ffffff;
+    text-align: center;
+
+    cursor: pointer;
+
+}
+
+.info {
+    font-size: 2em;
+    color: white;
+    text-shadow: 1px 1px 1px #ccc;
+}
+
+.info-opened {
+    left: 300px;
+}
+
+/* General styles for all menus */
+
+.cbp-spmenu {
+    background: #FFFFFF;
+    position: fixed;
+}
+ 
+.cbp-spmenu h3 {
+    color: #444444;
+    font-size: 1.9em;
+    padding: 20px;
+    margin: 0;
+    font-weight: 300;
+    background: #FFFFFF;
+}
+ 
+
+ 
+/* Orientation-dependent styles for the content of the menu */
+ 
+.cbp-spmenu-vertical {
+    width: 300px;
+    height: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+ 
+.cbp-spmenu-horizontal {
+    width: 100%;
+    height: 150px;
+    left: 0;
+    z-index: 1000;
+    overflow: hidden;
+}
+ 
+.cbp-spmenu-horizontal h3 {
+    height: 100%;
+    width: 20%;
+    float: left;
+}
+ 
+/* Vertical menu that slides from the left or right */
+ 
+.cbp-spmenu-left {
+    left: -300px;
+}
+ 
+
+ 
+.cbp-spmenu-left.cbp-spmenu-open {
+    left: 0px;
+}
+
+/* Transitions */
+ 
+.cbp-spmenu,
+.cbp-spmenu-push {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+#showLeft {
+    float:left;
+    position: absolute;
+    background: none;
+    outline: 0;
+    border: none;
+    margin-left: 1em;
+    margin-top: 1em;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
+}
+ 
+/* Example media queries */
+ 
+@media screen and (max-width: 55.1875em){
+
+ 
+}
+ 
+@media screen and (max-height: 26.375em){
+
+    .cbp-spmenu-left,
+    .cbp-spmenu-push-toleft {
+        left: -190px;
+    }
+
+ 
+}
+
+#profile-content {
+    margin-top: 70px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+#profile-content-buttons {
+    margin-top: 20px; 
+    margin-bottom: 20px;
+}
+
+#profile-content-social {
+    margin-top: 40px; 
+}
