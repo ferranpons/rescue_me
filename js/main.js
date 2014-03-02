@@ -145,11 +145,11 @@ function init() {
 	}
 
 
-	window.addEventListener( 'resize', onWindowResize, false );
+	//window.addEventListener( 'resize', onWindowResize, false );
 
 }
 
-
+/*
 function onWindowResize() {
 
 	windowHalfX = window.innerWidth / 2;
@@ -164,7 +164,7 @@ function onWindowResize() {
 	renderer.setSize( window.innerWidth, window.innerHeight );
 
 }
-
+*/
 
 function update() {
 

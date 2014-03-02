@@ -119,9 +119,24 @@ var WORLD =
         
         // Ambient Light
         this.ms_Scene.add( new THREE.AmbientLight( 0x404040 ) );
+
+        this.ms_Scene.add( this.createSkyboxMesh() );
+        //this.ms_Scene.add( this.createWaterMesh() );
         
-        // Add skybox
-        var aSkyDome = new THREE.Mesh(
+        if (DEBUG)
+        {
+            //this.ms_CloseLight.shadowCameraVisible = true;
+            //this.ms_Light.shadowCameraVisible = true;
+        }
+        
+        this.LoadTerrain();
+        
+        //this.GenerateAnimals();                
+    },
+
+    createSkyboxMesh: function()
+    {
+        var skyBox = new THREE.Mesh(
             new THREE.SphereGeometry( 10000, 15, 15 ),
             new THREE.MeshBasicMaterial( {
                 map: THREE.ImageUtils.loadTexture( "assets/sky/Skydome.jpg" ),
@@ -129,10 +144,12 @@ var WORLD =
                 side: THREE.DoubleSide
             } )
         );
-        aSkyDome.rotation.y = Math.PI;
-        this.ms_Scene.add( aSkyDome );
-        
-        // Create the water effect
+        skyBox.rotation.y = Math.PI;
+        return skyBox;
+    },
+
+    createWaterMesh: function()
+    {
         var waterNormals = new THREE.ImageUtils.loadTexture( 'assets/materials/waternormals.jpg' );
         waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping; 
         this.ms_Light.position.set( -1100, 800, -250 );
@@ -153,21 +170,16 @@ var WORLD =
         aMeshMirror.add( this.ms_Water );
         aMeshMirror.position.y = 15;
         aMeshMirror.rotation.x = - Math.PI * 0.5;
-        this.ms_Scene.add( aMeshMirror );
-        
-        if (DEBUG)
-        {
-            this.ms_CloseLight.shadowCameraVisible = true;
-            this.ms_Light.shadowCameraVisible = true;
-        }
-        
-        this.LoadTerrain();
-        this.GenerateAnimals();                
+        return aMeshMirror;
     },
     
     LoadTerrain: function()
     {
-        var terrainGeo = TERRAINGEN.Get( GAME.ms_Parameters );
+        /*var terrainGeo = TERRAINGEN.Get( GAME.ms_Parameters );
+        terrainGeo.computeFaceNormals();
+        terrainGeo.computeVertexNormals();*/
+
+        var terrainGeo = new THREE.PlaneGeometry(  750, 750, 150, 150 );
         terrainGeo.computeFaceNormals();
         terrainGeo.computeVertexNormals();
 
@@ -181,12 +193,15 @@ var WORLD =
         //this.ms_Ground = new Physijs.HeightfieldMesh( terrainGeo, terrainMaterial, 0, 50, 50 );
 
         this.ms_Terrain = new Physijs.HeightfieldMesh( terrainGeo, terrainMaterial, 0);
+        this.ms_Terrain.rotation.x = Math.PI / -2;
+        this.ms_Terrain.receiveShadow = true;
         
         this.ms_Scene.add( this.ms_Terrain );
         this.ms_Terrain.receiveShadow = true;
         this.ms_Terrain.castShadow = false;
     },
     
+    /*
     GetDepth: function( inX, inY )
     {
         return this.ms_Terrain.geometry.vertices[ inY * GAME.ms_Parameters.widthSegments + inX ].y;
@@ -225,17 +240,20 @@ var WORLD =
         this.ms_Scene.add( this.ms_Animals );
         this.LoadAnimals( MESHES.Type.Cow );
     },
+    */
     
     Display: function()
     {
         this.ms_Scene.simulate();
-        this.ms_Water.render();
+        if (this.ms_Water != null)
+            this.ms_Water.render();
         this.ms_Renderer.render( this.ms_Scene, this.ms_Camera );
     },
     
     Update: function( inUpdate )
     {
-        this.ms_Water.material.uniforms.time.value += 1.0 / 60.0;
+        if (this.ms_Water != null)
+            this.ms_Water.material.uniforms.time.value += 1.0 / 60.0;
         
         MESHES.Update( inUpdate );
         

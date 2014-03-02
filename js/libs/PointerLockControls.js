@@ -3,7 +3,7 @@
  * @author ponsaffair / http://www.ferranpons.com/
  */
 
-THREE.PointerLockControls = function ( camera ) {
+THREE.PointerLockControls = function ( physijs_shape, camera ) {
 
 	var scope = this;
 	var height = camera.position.y;
@@ -11,10 +11,10 @@ THREE.PointerLockControls = function ( camera ) {
 	camera.rotation.set( 0, 0, 0 );
 
 	var pitchObject = new THREE.Object3D();
-	pitchObject.add( camera );
+	pitchObject.add( physijs_shape );
 
 	var yawObject = new THREE.Object3D();
-	yawObject.position.y = height;
+	//yawObject.position.y = height;
 	yawObject.add( pitchObject );
 
 	var moveForward = false;
@@ -26,9 +26,9 @@ THREE.PointerLockControls = function ( camera ) {
 	var isOnObject = false;
 	var canJump = false;
 
-	var runFactor = 0.50;
-	var velocityFactor = 0.12;
-	var walkFactor = 0.18;
+	var runFactor = 0.5;
+	var velocityFactor = 12;
+	var walkFactor = 0.1;
 
 	var velocity = new THREE.Vector3();
 
@@ -187,8 +187,9 @@ THREE.PointerLockControls = function ( camera ) {
 		}
 
 		yawObject.translateX( velocity.x );
-		yawObject.translateY( velocity.y ); 
+		//yawObject.translateY( velocity.y ); 
 		yawObject.translateZ( velocity.z );
+
 
 		if ( yawObject.position.y < height ) {
 
@@ -198,6 +199,16 @@ THREE.PointerLockControls = function ( camera ) {
 			canJump = true;
 
 		}
+
+
+		camera.rotation.copy(this.getRotation());
+		//physijs_shape.position.copy(yawObject.position);
+
+		physijs_shape.position.set(yawObject.position.x, physijs_shape.position.y, yawObject.position.z);
+		//physijs_shape.position.x = yawObject.position.x;
+		//physijs_shape.position.z = yawObject.position.z;
+		physijs_shape.setAngularFactor({ x: 0, y: 0, z: 0 });
+		physijs_shape.__dirtyPosition = true;
 
 	};
 

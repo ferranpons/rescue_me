@@ -69,7 +69,7 @@ var GAME =
         
         PLAYER.Update( aDelta );
         
-        var aSize = WORLD.ms_Animals.children.length * 0.8;
+        //var aSize = WORLD.ms_Animals.children.length * 0.8;
         //for( var i = 0; i < aSize; ++i )
         //    WORLD.ms_Animals.children[i].lookAt( PLAYER.ms_Group.position );
                 
