@@ -1,16 +1,15 @@
 var WORLD =
 {
-    ms_Canvas: null,
-    ms_Renderer: null,
-    ms_Camera: null, 
-    ms_Scene: null, 
-    ms_Controls: null,
-    ms_Terrain: null,
-    ms_Ground: null,
-    ms_Light: null,
-    ms_CloseLight: null,
-    ms_Animals: null,
-    ms_Water: null,
+    canvas: null,
+    renderer: null,
+    camera: null, 
+    scene: null, 
+    controls: null,
+    terrain: null,
+    ground: null,
+    light: null,
+    closeLight: null,
+    water: null,
     ms_Player: null,
     debug_physics_stats: null,
     
@@ -24,16 +23,16 @@ var WORLD =
         catch( e ) { return false; } 
     } )(),
     
-    Initialize: function( inIdCanvas )
+    initialize: function( inIdCanvas )
     {
         this.ms_Clock = new THREE.Clock();
-        this.ms_Canvas = $( '#'+ inIdCanvas );
+        this.canvas = $( '#'+ inIdCanvas );
         
         // Initialize Renderer, Camera and Scene
-        this.ms_Renderer = this.Enable? new THREE.WebGLRenderer( { antialias: true } ) : new THREE.CanvasRenderer();
-        this.ms_Renderer.setSize( window.innerWidth, window.innerHeight );
-        this.ms_Renderer.autoClear = false;
-        this.ms_Canvas.html( this.ms_Renderer.domElement );
+        this.renderer = this.Enable? new THREE.WebGLRenderer( { antialias: true } ) : new THREE.CanvasRenderer();
+        this.renderer.setSize( window.innerWidth, window.innerHeight );
+        this.renderer.autoClear = false;
+        this.canvas.html( this.renderer.domElement );
 
         if (DEBUG) {
             debug_physics_stats = new Stats();
@@ -44,13 +43,13 @@ var WORLD =
         }
 
         // SCENE
-        //this.ms_Scene = new THREE.Scene();
-        this.ms_Scene = new Physijs.Scene({ fixedTimeStep: 1 / 120 });
-        this.ms_Scene.setGravity(new THREE.Vector3( 0, -30, 0 ));
-        this.ms_Scene.addEventListener(
+        //this.scene = new THREE.Scene();
+        this.scene = new Physijs.Scene({ fixedTimeStep: 1 / 120 });
+        this.scene.setGravity(new THREE.Vector3( 0, -30, 0 ));
+        this.scene.addEventListener(
             'update',
             function() {
-                WORLD.ms_Scene.simulate( undefined, 2 );
+                WORLD.scene.simulate( undefined, 2 );
                 if (DEBUG) {
                     debug_physics_stats.update();
                 }
@@ -58,80 +57,78 @@ var WORLD =
         );
         
         // CAMERA
-        this.ms_Camera = new THREE.PerspectiveCamera( 55.0, window.innerWidth / window.innerHeight, 0.01, 20000 );
-        //this.ms_Camera.position.set( 0, 1.5, 0 );
+        this.camera = new THREE.PerspectiveCamera( 55.0, window.innerWidth / window.innerHeight, 0.01, 20000 );
+        //this.camera.position.set( 0, 1.5, 0 );
 
         // CONTROLS
-        this.ms_Controls = PLAYER.ms_Controls;
+        this.controls = PLAYER.controls;
 
         // Orbit control                
-        /*this.ms_Controls = new THREE.OrbitControls( this.ms_Camera, this.ms_Renderer.domElement );
-        this.ms_Controls.userPanSpeed = 2.5;
-        this.ms_Controls.maxPolarAngle = Math.PI * 0.51;
-        this.ms_Controls.maxDistance = 100.0;*/
+        /*this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement );
+        this.controls.userPanSpeed = 2.5;
+        this.controls.maxPolarAngle = Math.PI * 0.51;
+        this.controls.maxDistance = 100.0;*/
 
         // PointerLockControls
 
-        //this.ms_Controls = new THREE.PointerLockControls( this.ms_Camera );
-        //this.ms_Scene.add( this.ms_Controls.getObject() );
+        //this.controls = new THREE.PointerLockControls( this.camera );
+        //this.scene.add( this.controls.getObject() );
 
         // FirstPersonControls
-        /*this.ms_Controls = new THREE.FirstPersonControls( this.ms_Camera );
-        this.ms_Controls.movementSpeed = 0.1;
-        this.ms_Controls.lookSpeed = 0.001;
-        this.ms_Controls.lookVertical = true;*/
+        /*this.controls = new THREE.FirstPersonControls( this.camera );
+        this.controls.movementSpeed = 0.1;
+        this.controls.lookSpeed = 0.001;
+        this.controls.lookVertical = true;*/
 
         // Add lights with shadows
-        this.ms_Renderer.shadowMapEnabled = true;
-        this.ms_Renderer.shadowMapType = THREE.PCFSoftShadowMap;
+        this.renderer.shadowMapEnabled = true;
+        this.renderer.shadowMapType = THREE.PCFSoftShadowMap;
         
         // Directional Light
-        this.ms_Light = new THREE.DirectionalLight( 0xffddaa, 1 );
-        this.ms_Light.castShadow = true;
-        this.ms_Light.position.set( -1100, 800, -250 );
-        this.ms_Light.shadowCameraNear = 1150;
-        this.ms_Light.shadowCameraFar = 1370;
-        this.ms_Light.shadowCameraLeft = -200;
-        this.ms_Light.shadowCameraRight = 200;
-        this.ms_Light.shadowCameraTop = 200;
-        this.ms_Light.shadowCameraBottom = -200;
-        this.ms_Light.shadowMapWidth = 512;
-        this.ms_Light.shadowMapHeight = 512;
-        this.ms_Light.shadowBias = -0.0018;
-        this.ms_Light.shadowDarkness = 0.7;
-        this.ms_Scene.add(this.ms_Light);
+        this.light = new THREE.DirectionalLight( 0xffddaa, 1 );
+        this.light.castShadow = true;
+        this.light.position.set( -1100, 800, -250 );
+        this.light.shadowCameraNear = 1150;
+        this.light.shadowCameraFar = 1370;
+        this.light.shadowCameraLeft = -200;
+        this.light.shadowCameraRight = 200;
+        this.light.shadowCameraTop = 200;
+        this.light.shadowCameraBottom = -200;
+        this.light.shadowMapWidth = 512;
+        this.light.shadowMapHeight = 512;
+        this.light.shadowBias = -0.0018;
+        this.light.shadowDarkness = 0.7;
+        this.scene.add(this.light);
         
-        this.ms_CloseLight = new THREE.DirectionalLight( 0xffffff, 0 );
-        this.ms_CloseLight.castShadow = true;
-        this.ms_CloseLight.onlyShadow = true;
-        this.ms_CloseLight.shadowCameraNear = 1;
-        this.ms_CloseLight.shadowCameraFar = 40;
-        this.ms_CloseLight.shadowCameraLeft = -20;
-        this.ms_CloseLight.shadowCameraRight = 20;
-        this.ms_CloseLight.shadowCameraTop = 20;
-        this.ms_CloseLight.shadowCameraBottom = -20;
-        this.ms_CloseLight.shadowMapWidth = 512;
-        this.ms_CloseLight.shadowMapHeight = 512;
-        this.ms_CloseLight.shadowDarkness = 0.7;
-        this.ms_CloseLight.shadowBias = -0.0004;
-        this.ms_CloseLight.position.set( -22, 20, -13 );
-        this.ms_Scene.add(this.ms_CloseLight);
+        this.closeLight = new THREE.DirectionalLight( 0xffffff, 0 );
+        this.closeLight.castShadow = true;
+        this.closeLight.onlyShadow = true;
+        this.closeLight.shadowCameraNear = 1;
+        this.closeLight.shadowCameraFar = 40;
+        this.closeLight.shadowCameraLeft = -20;
+        this.closeLight.shadowCameraRight = 20;
+        this.closeLight.shadowCameraTop = 20;
+        this.closeLight.shadowCameraBottom = -20;
+        this.closeLight.shadowMapWidth = 512;
+        this.closeLight.shadowMapHeight = 512;
+        this.closeLight.shadowDarkness = 0.7;
+        this.closeLight.shadowBias = -0.0004;
+        this.closeLight.position.set( -22, 20, -13 );
+        this.scene.add(this.closeLight);
         
         // Ambient Light
-        this.ms_Scene.add( new THREE.AmbientLight( 0x404040 ) );
+        this.scene.add( new THREE.AmbientLight( 0x404040 ) );
 
-        this.ms_Scene.add( this.createSkyboxMesh() );
-        //this.ms_Scene.add( this.createWaterMesh() );
+        this.scene.add( this.createSkyboxMesh() );
+        //this.scene.add( this.createWaterMesh() );
         
         if (DEBUG)
         {
-            //this.ms_CloseLight.shadowCameraVisible = true;
-            //this.ms_Light.shadowCameraVisible = true;
+            //this.closeLight.shadowCameraVisible = true;
+            //this.light.shadowCameraVisible = true;
         }
         
-        this.LoadTerrain();
-        
-        //this.GenerateAnimals();                
+        this.loadTerrain();              
     },
 
     createSkyboxMesh: function()
@@ -152,8 +149,8 @@ var WORLD =
     {
         var waterNormals = new THREE.ImageUtils.loadTexture( 'assets/materials/waternormals.jpg' );
         waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping; 
-        this.ms_Light.position.set( -1100, 800, -250 );
-        this.ms_Water = new THREE.Water( this.ms_Renderer, this.ms_Camera, this.ms_Scene, {
+        this.light.position.set( -1100, 800, -250 );
+        this.water = new THREE.Water( this.renderer, this.camera, this.scene, {
             textureWidth: 256, 
             textureHeight: 256,
             waterNormals: waterNormals,
@@ -165,15 +162,15 @@ var WORLD =
         } );
         var aMeshMirror = new THREE.Mesh(
             new THREE.PlaneGeometry( GAME.ms_Parameters.width * 0.85, GAME.ms_Parameters.height, 10, 10 ), 
-            this.ms_Water.material
+            this.water.material
         );
-        aMeshMirror.add( this.ms_Water );
+        aMeshMirror.add( this.water );
         aMeshMirror.position.y = 15;
         aMeshMirror.rotation.x = - Math.PI * 0.5;
         return aMeshMirror;
     },
     
-    LoadTerrain: function()
+    loadTerrain: function()
     {
         /*var terrainGeo = TERRAINGEN.Get( GAME.ms_Parameters );
         terrainGeo.computeFaceNormals();
@@ -189,93 +186,40 @@ var WORLD =
             .4  // low restitution
         );
         
-        //this.ms_Terrain = new THREE.Mesh( terrainGeo, terrainMaterial );
-        //this.ms_Ground = new Physijs.HeightfieldMesh( terrainGeo, terrainMaterial, 0, 50, 50 );
+        //this.terrain = new THREE.Mesh( terrainGeo, terrainMaterial );
+        //this.ground = new Physijs.HeightfieldMesh( terrainGeo, terrainMaterial, 0, 50, 50 );
 
-        this.ms_Terrain = new Physijs.HeightfieldMesh( terrainGeo, terrainMaterial, 0);
-        this.ms_Terrain.rotation.x = Math.PI / -2;
-        this.ms_Terrain.receiveShadow = true;
+        this.terrain = new Physijs.HeightfieldMesh( terrainGeo, terrainMaterial, 0);
+        this.terrain.rotation.x = Math.PI / -2;
+        this.terrain.receiveShadow = true;
         
-        this.ms_Scene.add( this.ms_Terrain );
-        this.ms_Terrain.receiveShadow = true;
-        this.ms_Terrain.castShadow = false;
+        this.scene.add( this.terrain );
+        this.terrain.receiveShadow = true;
+        this.terrain.castShadow = false;
     },
     
-    /*
-    GetDepth: function( inX, inY )
+    display: function()
     {
-        return this.ms_Terrain.geometry.vertices[ inY * GAME.ms_Parameters.widthSegments + inX ].y;
+        this.scene.simulate();
+        if (this.water != null)
+            this.water.render();
+        this.renderer.render( this.scene, this.camera );
     },
     
-    LoadAnimals: function( inType )
+    update: function( inUpdate )
     {
-        MESHES.Load( inType, function( inGeometry ) {
-            for( var i = 0; i < 400; ++i )
-            {
-                var x = ( 0.1 + RAND_MT.Random() * 0.9 ) * GAME.ms_Parameters.widthSegments/2 - GAME.ms_Parameters.widthSegments/8;
-                var z = ( 0.005 + RAND_MT.Random() * 0.99 ) * GAME.ms_Parameters.heightSegments - GAME.ms_Parameters.heightSegments/2;
-                var y = WORLD.GetDepth( Math.round( GAME.ms_Parameters.widthSegments / 2 + x ), Math.round( GAME.ms_Parameters.heightSegments / 2 + z ) );
-                
-                if( y > 15.0 )
-                {
-                    var mesh = MESHES.AddMorph( inGeometry );
-                    mesh.position.x = x * GAME.ms_Parameters.width / GAME.ms_Parameters.widthSegments;
-                    mesh.position.z = z * GAME.ms_Parameters.height / GAME.ms_Parameters.heightSegments;
-                    mesh.rotation.set( 0, RAND_MT.Random() * Math.PI * 2, 0 );
-                    
-                    mesh.position.y = y;
-                    mesh.scale.set( 0.03, 0.03, 0.03 );
-                    mesh.castShadow = true;
-                    mesh.receiveShadow = false;
-                    
-                    WORLD.ms_Animals.add( mesh );
-                }
-            }
-        } );
-    },
-    
-    GenerateAnimals: function()
-    {
-        this.ms_Animals = new THREE.Object3D();
-        this.ms_Scene.add( this.ms_Animals );
-        this.LoadAnimals( MESHES.Type.Cow );
-    },
-    */
-    
-    Display: function()
-    {
-        this.ms_Scene.simulate();
-        if (this.ms_Water != null)
-            this.ms_Water.render();
-        this.ms_Renderer.render( this.ms_Scene, this.ms_Camera );
-    },
-    
-    Update: function( inUpdate )
-    {
-        if (this.ms_Water != null)
-            this.ms_Water.material.uniforms.time.value += 1.0 / 60.0;
+        if (this.water != null)
+            this.water.material.uniforms.time.value += 1.0 / 60.0;
         
         MESHES.Update( inUpdate );
-        
-        //PointerLockControls Update
-        /*this.ms_Controls.isOnObject( false );
-        this.ms_Controls.update(this.ms_Clock.getDelta());
-        this.ms_Camera.rotation.copy(this.ms_Controls.getRotation());*/
-
-        //OrbitControls Update
-        //this.ms_Controls.update();
-
-        //FirstPersonControls Update
-        //this.ms_Controls.update(this.ms_Clock.getDelta());
-
-        this.Display();
+        this.display();
     },
     
-    Resize: function( inWidth, inHeight )
+    resize: function( inWidth, inHeight )
     {
-        this.ms_Camera.aspect =  inWidth / inHeight;
-        this.ms_Camera.updateProjectionMatrix();
-        this.ms_Renderer.setSize( inWidth, inHeight );
-        this.ms_Canvas.html( this.ms_Renderer.domElement );
+        this.camera.aspect =  inWidth / inHeight;
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize( inWidth, inHeight );
+        this.canvas.html( this.renderer.domElement );
     }
 };

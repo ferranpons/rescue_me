@@ -3,15 +3,15 @@
  * @author ponsaffair / http://www.ferranpons.com/
  */
 
-THREE.PointerLockControls = function ( physijs_shape, camera ) {
+THREE.PointerLockControls = function () {
 
 	var scope = this;
-	var height = camera.position.y;
+	var height = PLAYER.camera.position.y;
 
-	camera.rotation.set( 0, 0, 0 );
+	PLAYER.camera.rotation.set( 0, 0, 0 );
 
 	var pitchObject = new THREE.Object3D();
-	pitchObject.add( physijs_shape );
+	pitchObject.add( PLAYER.physijsShape );
 
 	var yawObject = new THREE.Object3D();
 	//yawObject.position.y = height;
@@ -201,14 +201,16 @@ THREE.PointerLockControls = function ( physijs_shape, camera ) {
 		}
 
 
-		camera.rotation.copy(this.getRotation());
-		//physijs_shape.position.copy(yawObject.position);
+		PLAYER.camera.rotation.copy(this.getRotation());
+		//PLAYER.weaponMesh.rotation.copy(this.getRotation());
+		//physijsShape.position.copy(yawObject.position);
 
-		physijs_shape.position.set(yawObject.position.x, physijs_shape.position.y, yawObject.position.z);
-		//physijs_shape.position.x = yawObject.position.x;
-		//physijs_shape.position.z = yawObject.position.z;
-		physijs_shape.setAngularFactor({ x: 0, y: 0, z: 0 });
-		physijs_shape.__dirtyPosition = true;
+		PLAYER.physijsShape.position.set(yawObject.position.x, PLAYER.physijsShape.position.y, yawObject.position.z);
+		//physijsShape.position.x = yawObject.position.x;
+		//physijsShape.position.z = yawObject.position.z;
+		PLAYER.physijsShape.setAngularFactor({ x: 0, y: 0, z: 0 });
+		PLAYER.physijsShape.__dirtyPosition = true;
+
 
 	};
 

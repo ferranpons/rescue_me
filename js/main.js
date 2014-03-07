@@ -41,14 +41,14 @@ if ( havePointerLock ) {
 
 		if ( document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element ) {
 
-			if (WORLD.ms_Controls != null) {
-				WORLD.ms_Controls.enabled = true;
+			if (WORLD.controls != null) {
+				WORLD.controls.enabled = true;
 				blocker.style.display = 'none';
 			}
 		} else {
 
-			if (WORLD.ms_Controls != null) {
-				WORLD.ms_Controls.enabled = false;
+			if (WORLD.controls != null) {
+				WORLD.controls.enabled = false;
 
 				blocker.style.display = '-webkit-box';
 				blocker.style.display = '-moz-box';
@@ -169,7 +169,7 @@ function onWindowResize() {
 function update() {
 
 	requestAnimationFrame( update );
-	GAME.Update();
+	GAME.update();
 
 	if (DEBUG)
 		stats.update();
