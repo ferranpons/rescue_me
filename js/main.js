@@ -145,26 +145,25 @@ function init() {
 	}
 
 
-	//window.addEventListener( 'resize', onWindowResize, false );
+	window.addEventListener( 'resize', onWindowResize, false );
 
 }
 
-/*
+
 function onWindowResize() {
 
 	windowHalfX = window.innerWidth / 2;
 	windowHalfY = window.innerHeight / 2;
 
-	cameraMain.aspect = window.innerWidth / window.innerHeight;
-	cameraMain.updateProjectionMatrix();
+	WORLD.camera.aspect = window.innerWidth / window.innerHeight;
+	WORLD.camera.updateProjectionMatrix();
 
-	cameraCube.aspect = window.innerWidth / window.innerHeight;
-	cameraCube.updateProjectionMatrix();
+	//cameraCube.aspect = window.innerWidth / window.innerHeight;
+	//cameraCube.updateProjectionMatrix();
 
-	renderer.setSize( window.innerWidth, window.innerHeight );
+	WORLD.renderer.setSize( window.innerWidth, window.innerHeight );
 
 }
-*/
 
 function update() {
 
