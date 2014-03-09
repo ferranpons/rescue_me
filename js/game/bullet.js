@@ -20,7 +20,7 @@ var BULLET =
 			);
 		}
 		else {
-			var vector = cam.position.clone();
+			var vector = WORLD.camera.position.clone();
 			sphere.ray = new THREE.Ray(
 				obj.position,
 				vector.sub(obj.position).normalize()

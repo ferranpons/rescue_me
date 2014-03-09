@@ -211,7 +211,7 @@ var WORLD =
         if (this.water != null)
             this.water.material.uniforms.time.value += 1.0 / 60.0;
         
-        MESHES.Update( inUpdate );
+        MESHES.update( inUpdate );
         BULLET.update( inUpdate );
         this.display();
     },

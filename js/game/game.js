@@ -29,15 +29,17 @@ var GAME =
         CONVERSOR.ms_WorldOffsetY = GAME.parameters.depth * 0.10;
         CONVERSOR.ms_WorldOffsetX = GAME.parameters.width * 0.42;
 
-        MESHES.Initialize();
+        MESHES.initialize();
         WORLD.initialize( inIdCanvas );
         PLAYER.initialize();
+        ENEMY.initialize();
     },
     
     update: function()
     {
-        var aDelta = this.clock.getDelta();
-        PLAYER.update( aDelta );   
-        WORLD.update( aDelta );
+        var timeDelta = this.clock.getDelta();
+        PLAYER.update( timeDelta );
+        ENEMY.update ( timeDelta );   
+        WORLD.update( timeDelta );
     },
 };

@@ -7,35 +7,35 @@ var MESHES =
         "assets/animals/fox.js",
         "assets/animals/parrot.js",
     ],
-    ms_MorphsGeometry: [],
-    ms_Morphs: [],
-    ms_Loader: null,
+    morphsGeometry: [],
+    morphs: [],
+    loader: null,
 
-    Initialize: function()
+    initialize: function()
     {
-        this.ms_Loader = new THREE.JSONLoader();
+        this.loader = new THREE.JSONLoader();
     },
 
     Load: function( inType, inCallback )
     {
         if( inType >= 0 && inType < this.Names.length )
         {
-            this.ms_Loader.load( this.Names[inType], inCallback );
+            this.loader.load( this.Names[inType], inCallback );
             return true;
         }
         return false;
     },
 
-    AddMorph: function( inGeometry )
+    addMorph: function( inGeometry )
     {
-        this.MorphColorsToFaceColors( inGeometry );
-        var mesh = this.CreateMorph( inGeometry, 0.55, 600, 0, 0, 0, false );
-        this.ms_Morphs.push( mesh );
-        this.ms_MorphsGeometry.push( inGeometry );
+        this.morphColorsToFaceColors( inGeometry );
+        var mesh = this.createMorph( inGeometry, 0.55, 600, 0, 0, 0, false );
+        this.morphs.push( mesh );
+        this.morphsGeometry.push( inGeometry );
         return mesh;
     },
 
-    CreateMorph: function( inGeometry, inSpeed, inDuration, inX, inY, inZ, inFudgeColor ) 
+    createMorph: function( inGeometry, inSpeed, inDuration, inX, inY, inZ, inFudgeColor ) 
     {
         var material = new THREE.MeshPhongMaterial( { color: 0xffffff, morphTargets: true, vertexColors: THREE.FaceColors, wrapAround: true, specular: 0xffffff } );
 
@@ -56,7 +56,7 @@ var MESHES =
         return meshAnim;
     },
 
-    MorphColorsToFaceColors: function( inGeometry ) 
+    morphColorsToFaceColors: function( inGeometry ) 
     {
         if ( inGeometry.morphColors && inGeometry.morphColors.length ) 
         {
@@ -67,12 +67,12 @@ var MESHES =
         }
     },
 
-    Update: function( inDelta )
+    update: function( timeDelta )
     {
-        for ( var i = 0; i < this.ms_Morphs.length; i++ ) 
+        for ( var i = 0; i < this.morphs.length; i++ ) 
         {
-            morph = this.ms_Morphs[i];
-            morph.updateAnimation( 1000 * inDelta );
+            morph = this.morphs[i];
+            morph.updateAnimation( 1000 * timeDelta );
         }
     }
 };
