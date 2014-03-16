@@ -65,6 +65,6 @@ function Enemy () {
     };
 
     this.update = function ( timeDelta ) {
-
+        this.groupedMesh.position.copy(this.physijsMesh);
     };
 }

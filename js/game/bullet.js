@@ -6,32 +6,19 @@ var BULLET =
 	projector: new THREE.Projector(),
 	moveSpeed: 500,
 
-	createBullet: function (movementX, movementY) {
-		obj = WORLD.camera;
+	createBullet: function (movementX, movementY, fromObject) {
+		var vector = new THREE.Vector3(movementX, movementY, 1);
 		var sphere = new THREE.Mesh(this.sphereGeo, this.sphereMaterial);
-		sphere.position.set(obj.position.x, obj.position.y * 0.8, obj.position.z);
-
-		if (obj instanceof THREE.Camera) {
-			var vector = new THREE.Vector3(movementX, movementY, 1);
-			this.projector.unprojectVector(vector, obj);
-			sphere.ray = new THREE.Ray(
-				obj.position,
-				vector.sub(obj.position).normalize()
-			);
-		}
-		else {
-			var vector = WORLD.camera.position.clone();
-			sphere.ray = new THREE.Ray(
-				obj.position,
-				vector.sub(obj.position).normalize()
-			);
-		}
-		sphere.owner = obj;
+		
+		this.projector.unprojectVector(vector, fromObject.camera);
+		sphere.position.copy(fromObject.position);
+		sphere.ray = new THREE.Ray(
+			fromObject.position,
+			vector.sub(fromObject.position).normalize()
+		);
 
 		this.bullets.push(sphere);
 		WORLD.scene.add(sphere);
-
-		//return sphere;
 	},
 
 	update: function( timeDelta ) {

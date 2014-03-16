@@ -121,7 +121,7 @@ THREE.PointerLockControls = function () {
 		if (event.which === 1 && scope.enabled === true) { // Left click only
 			var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
 			var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
-			BULLET.createBullet( movementX, movementY);
+			BULLET.createBullet( movementX, movementY, Player);
 		}
 	};
 

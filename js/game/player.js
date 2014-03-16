@@ -92,6 +92,10 @@ var Player =
             this.physijsMesh.position.copy(this.position);
             this.physijsMesh.setAngularFactor({ x: 0, y: 0, z: 0 });
             this.physijsMesh.__dirtyPosition = true;
+
+            //this.camera.position.set(this.position.x, this.position.y + 5, this.position.z);
+            this.groupedMesh.position.set(this.position.x, this.position.y + 5, this.position.z);
+            this.weaponMesh.rotation.copy(this.camera.rotation);
         }
     },
 }
