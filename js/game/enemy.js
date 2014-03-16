@@ -1,4 +1,6 @@
 function Enemy () {
+    var enemy = this;
+
     this.health = 100;
     this.position = new THREE.Vector3(0,0,0);
     this.size = { x: 1, y: 1, z: 1 };
@@ -24,8 +26,8 @@ function Enemy () {
     this.loadAndCreateMeshes = function() {
         loader = new THREE.ObjectLoader();
         this.createPhysijsMesh();
-        //this.loadBodyMesh(loader);
-        //this.loadWeaponMesh(loader);
+        this.loadBodyMesh(loader);
+        this.loadWeaponMesh(loader);
     };
 
     this.createPhysijsMesh = function() {
@@ -38,18 +40,18 @@ function Enemy () {
     };
 
     this.loadBodyMesh = function(loader) {
-        loader.load('assets/animals/fox.js', function (loadedMesh) {
-            this.bodyMesh = new THREE.Mesh(loadedMesh.geometry, new THREE.MeshNormalMaterial());
-            this.bodyMesh.position.copy(this.position);
-            this.groupedMesh.add(this.bodyMesh);
-        });
+        /*loader.load('assets/animals/fox.js', function (loadedMesh) {
+            enemy.bodyMesh = new THREE.Mesh(loadedMesh.geometry, new THREE.MeshNormalMaterial());
+            enemy.bodyMesh.position.copy(enemy.position);
+            enemy.groupedMesh.add(enemy.bodyMesh);
+        });*/
     };
 
     this.loadWeaponMesh = function(loader) {
         loader.load('assets/models/SMGWeapon.json', function (loadedMesh) {
-            this.weaponMesh = new THREE.Mesh(loadedMesh.geometry, new THREE.MeshNormalMaterial());
-            this.weaponMesh.position.copy(this.position);
-            this.groupedMesh.add(this.weaponMesh);
+            enemy.weaponMesh = new THREE.Mesh(loadedMesh.geometry, new THREE.MeshNormalMaterial());
+            enemy.weaponMesh.position.copy(enemy.position);
+            enemy.groupedMesh.add(enemy.weaponMesh);
         });
     };
 

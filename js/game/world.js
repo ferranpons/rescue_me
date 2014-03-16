@@ -61,7 +61,7 @@ var WORLD =
         //this.camera.position.set( 0, 1.5, 0 );
 
         // CONTROLS
-        this.controls = PLAYER.controls;
+        this.controls = Player.controls;
 
         // Orbit control                
         /*this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement );

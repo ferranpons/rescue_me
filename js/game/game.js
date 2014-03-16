@@ -33,7 +33,7 @@ var GAME =
 
         MESHES.initialize();
         WORLD.initialize( inIdCanvas );
-        PLAYER.initialize();
+        Player.initializeWith(new THREE.Vector3(0,10,0), { x: 2, y: 1, z: 2 }, 2 );
 
         this.enemy = new Enemy();
         this.enemy.initializeWith( new THREE.Vector3(100,10,100), { x: 1, y: 1, z: 1 }, 2 );
@@ -42,7 +42,7 @@ var GAME =
     update: function()
     {
         var timeDelta = this.clock.getDelta();
-        PLAYER.update( timeDelta );
+        Player.update( timeDelta );
         this.enemy.update ( timeDelta );   
         WORLD.update( timeDelta );
     },

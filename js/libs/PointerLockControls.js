@@ -6,12 +6,12 @@
 THREE.PointerLockControls = function () {
 
 	var scope = this;
-	var height = PLAYER.camera.position.y;
+	var height = Player.camera.position.y;
 
-	PLAYER.camera.rotation.set( 0, 0, 0 );
+	Player.camera.rotation.set( 0, 0, 0 );
 
 	var pitchObject = new THREE.Object3D();
-	pitchObject.add( PLAYER.physijsShape );
+	pitchObject.add( Player.physijsMesh );
 
 	var yawObject = new THREE.Object3D();
 	//yawObject.position.y = height;
@@ -211,17 +211,19 @@ THREE.PointerLockControls = function () {
 		}
 
 
-		PLAYER.camera.rotation.copy(this.getRotation());
-		//PLAYER.weaponMesh.rotation.copy(this.getRotation());
-		//physijsShape.position.copy(yawObject.position);
+		//Player.camera.rotation.copy(this.getRotation());
+		//Player.weaponMesh.rotation.copy(this.getRotation());
+		//physijsMesh.position.copy(yawObject.position);
 
-		PLAYER.physijsShape.position.set(yawObject.position.x, PLAYER.physijsShape.position.y, yawObject.position.z);
-		//physijsShape.position.x = yawObject.position.x;
-		//physijsShape.position.z = yawObject.position.z;
-		PLAYER.physijsShape.setAngularFactor({ x: 0, y: 0, z: 0 });
-		PLAYER.physijsShape.__dirtyPosition = true;
+		/*Player.physijsMesh.position.set(yawObject.position.x, Player.physijsMesh.position.y, yawObject.position.z);
+		//physijsMesh.position.x = yawObject.position.x;
+		//physijsMesh.position.z = yawObject.position.z;
+		Player.physijsMesh.setAngularFactor({ x: 0, y: 0, z: 0 });
+		Player.physijsMesh.__dirtyPosition = true;*/
 
-
+		var newPosition = new THREE.Vector3(yawObject.position.x, Player.physijsMesh.position.y, yawObject.position.z);
+		Player.setPosition(newPosition);
+		Player.setCameraRotation(this.getRotation());
 	};
 
 };

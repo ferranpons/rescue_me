@@ -38,11 +38,11 @@ test( "Enemy Physijs Mesh Exists", function() {
 	notStrictEqual( anEnemy.physijsMesh, undefined, "Physijs Mesh does not exist." );
 });
 
-test( "Physijs Mesh has a geometry", function() {
+test( "Enemy Physijs Mesh has a geometry", function() {
 	notStrictEqual( anEnemy.physijsMeshGeometry, undefined, "Physijs Mesh does not exist." );
 });
 
-test( "Physijs Mesh has a material", function() {
+test( "Enemy Physijs Mesh has a material", function() {
 	notStrictEqual( anEnemy.physijsMeshMaterial, undefined, "Physijs Mesh does not exist." );
 });
 
