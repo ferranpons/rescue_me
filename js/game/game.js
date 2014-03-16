@@ -3,6 +3,8 @@ var GAME =
     parameters: null,
     heightMap: null,
     clock: null,
+    enemies: [],
+    enemy: null,
     
     Initialize: function( inIdCanvas )
     {
@@ -32,14 +34,16 @@ var GAME =
         MESHES.initialize();
         WORLD.initialize( inIdCanvas );
         PLAYER.initialize();
-        ENEMY.initialize();
+
+        this.enemy = new Enemy();
+        this.enemy.initializeWith( new THREE.Vector3(100,10,100), { x: 1, y: 1, z: 1 }, 2 );
     },
     
     update: function()
     {
         var timeDelta = this.clock.getDelta();
         PLAYER.update( timeDelta );
-        ENEMY.update ( timeDelta );   
+        this.enemy.update ( timeDelta );   
         WORLD.update( timeDelta );
     },
 };
