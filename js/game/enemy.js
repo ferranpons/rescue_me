@@ -1,4 +1,6 @@
-function Enemy () {
+define( ["order!threeCore", "order!physijs", "conversor"], function ( THREE, Physijs, CONVERSOR ) {
+
+ return function Enemy () {
     var enemy = this;
 
     this.health = 100;
@@ -56,8 +58,8 @@ function Enemy () {
     };
 
     this.addObjectsToWorld = function () {
-        WORLD.scene.add( this.physijsMesh );
-        WORLD.scene.add( this.groupedMesh );
+        //WORLD.scene.add( this.physijsMesh );
+        //WORLD.scene.add( this.groupedMesh );
     };
 
     this.setPosition = function (newPosition) {
@@ -68,3 +70,5 @@ function Enemy () {
         this.groupedMesh.position.copy(this.physijsMesh);
     };
 }
+
+});

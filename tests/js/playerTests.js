@@ -1,4 +1,4 @@
-define( ["threeCore", "world", "physijs", "conversor", "pointerLockControls", "player"], function ( THREE, WORLD, Physijs, CONVERSOR, PointerLockControls, Player ) {
+define( ["order!threeCore", "order!physijs", "order!conversor", "order!world", "order!player", "order!pointerLockControls"], function ( THREE, Physijs, CONVERSOR, WORLD, Player, PointerLockControls ) {
 	var loader = new THREE.ObjectLoader();
 	var newPosition = new THREE.Vector3(100, 10, 100);
 	var newRotation = new THREE.Euler( 0, 0, 0, "YXZ" );;
@@ -7,6 +7,13 @@ define( ["threeCore", "world", "physijs", "conversor", "pointerLockControls", "p
 	var WORLD = {scene: new Physijs.Scene({ fixedTimeStep: 1 / 120 })};
 	var clock = new THREE.Clock();
 	var timeDelta = clock.getDelta();
+
+	testStart(function() {
+		Player.initializeWith( newPosition, newSize, newSpeed );
+	});
+
+	testDone(function() {
+	});
 
 
 	test( "Player class Exists", function() {
@@ -18,21 +25,19 @@ define( ["threeCore", "world", "physijs", "conversor", "pointerLockControls", "p
 	});
 
 	test( "Player has a position", function() {
-		deepEqual( Player.position, new THREE.Vector3(0,0,0), "Player hasn't got a position" );
+		deepEqual( Player.position, newPosition, "Player's new position not correct." );
 	});
 
 	test( "Set a new position to Player", function() {
-		Player.setPosition(newPosition);
 		deepEqual( Player.position, newPosition, "Player new position not set." );
 	});
 
 	test( "Player has size", function() {
-		var size = { x: 1, y: 1, z: 1 };
-		deepEqual( Player.size, size, "Player hasn't got a size." );
+		deepEqual( Player.size, newSize, "Player hasn't got a size." );
 	});
 
 	test( "Player has speed", function() {
-		equal( Player.speed, 1, "Player hasn't got speed." );
+		equal( Player.speed, newSpeed, "Player hasn't got speed." );
 	});
 
 	test( "Player Physijs Mesh Exists", function() {
@@ -47,14 +52,6 @@ define( ["threeCore", "world", "physijs", "conversor", "pointerLockControls", "p
 		notStrictEqual( Player.physijsMeshMaterial, undefined, "Physijs Mesh does not exist." );
 	});
 
-	test( "Player setup main values", function() {
-		Player.initializeWith( newPosition, newSize, newSpeed );
-		deepEqual( Player.position, newPosition, "Player's new position not correct." );
-		deepEqual( Player.size, newSize, "Player's new size not correct." );
-		equal( Player.speed, newSpeed, "Player's new speed not correct." );
-		ok( Player.physijsMesh != null, "Player's Physijs Mesh not correct." );
-	});
-
 	test( "Player has a Grouped Mesh without Physijs Shape", function() {
 		notStrictEqual( Player.groupedMesh, undefined, "Player hasn't got a Grouped Mesh." );
 	});
@@ -65,10 +62,6 @@ define( ["threeCore", "world", "physijs", "conversor", "pointerLockControls", "p
 
 	test( "Player has a Weapon Mesh", function() {
 		notStrictEqual( Player.weaponMesh, undefined, "Player hasn't got a Body Mesh." );
-	});
-
-	test( "Player can add 3D Objects to World", function() {
-		ok( Player.addObjectsToWorld() != NaN, "Player class can't add objects to World" );
 	});
 
 	test( "Player can update its objects", function() {

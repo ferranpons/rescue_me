@@ -1,4 +1,4 @@
-define( ["threeCore", "world", "physijs", "conversor", "pointerLockControls"], function ( THREE, WORLD, Physijs, CONVERSOR, PointerLockControls ) {
+define( ["order!threeCore", "order!physijs", "conversor", "pointerLockControls"], function ( THREE, Physijs, CONVERSOR, PointerLockControls ) {
     var Player = 
     {
         health: 100,
@@ -17,15 +17,14 @@ define( ["threeCore", "world", "physijs", "conversor", "pointerLockControls"], f
         camera: null,
         controls: null,
 
-        initializeWith: function (newPosition, newSize, newSpeed, WORLD) {
+        initializeWith: function (newPosition, newSize, newSpeed) {
             this.setPosition(newPosition);
             this.size = newSize;
             this.speed = newSpeed;
             this.groupedMesh.position.copy(this.position);
             this.createCamera();
-            this.createControls(WORLD);
+            this.createControls();
             this.loadAndCreateMeshes();
-            this.addObjectsToWorld(WORLD);
         },
 
         loadAndCreateMeshes: function() {
@@ -66,15 +65,8 @@ define( ["threeCore", "world", "physijs", "conversor", "pointerLockControls"], f
             this.groupedMesh.add(this.camera);
         },
 
-        createControls: function(WORLD) {
-            this.controls = new PointerLockControls(Player, WORLD);
-        },
-
-        addObjectsToWorld: function (WORLD) {
-            WORLD.camera = this.camera;
-            WORLD.controls = this.controls;
-            WORLD.scene.add( this.physijsMesh );
-            WORLD.scene.add( this.groupedMesh );
+        createControls: function() {
+            this.controls = new PointerLockControls(Player);
         },
 
         setPosition: function (newPosition) {

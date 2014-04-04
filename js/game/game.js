@@ -1,4 +1,4 @@
-define( ["threeCore", "meshes", "world", "player"], function ( THREE, MESHES, WORLD, Player ) {
+define( ["order!threeCore", "order!meshes", "order!world", "order!player"], function ( THREE, MESHES, WORLD, Player ) {
     var GAME =
     {
         parameters: null,
@@ -32,9 +32,13 @@ define( ["threeCore", "meshes", "world", "player"], function ( THREE, MESHES, WO
             CONVERSOR.ms_WorldOffsetY = GAME.parameters.depth * 0.10;
             CONVERSOR.ms_WorldOffsetX = GAME.parameters.width * 0.42;*/
 
-            MESHES.initialize();
+            //MESHES.initialize();
             WORLD.initialize( inIdCanvas );
-            Player.initializeWith(new THREE.Vector3(0,10,0), { x: 2, y: 1, z: 2 }, 2, WORLD );
+            //Player.initializeWith(new THREE.Vector3(0,10,0), { x: 2, y: 1, z: 2 }, 2 );
+            //WORLD.camera = Player.camera;
+            //WORLD.controls = Player.controls;
+            //WORLD.addObjectsToScene([Player.physijsMesh, Player.groupedMesh]);
+            //WORLD.camera = new THREE.PerspectiveCamera( 55.0, window.innerWidth / window.innerHeight, 0.01, 20000 );
 
             //this.enemy = new Enemy();
             //this.enemy.initializeWith( new THREE.Vector3(100,10,100), { x: 1, y: 1, z: 1 }, 2 );
@@ -43,7 +47,7 @@ define( ["threeCore", "meshes", "world", "player"], function ( THREE, MESHES, WO
         update: function()
         {
             var timeDelta = this.clock.getDelta();
-            Player.update( timeDelta );
+            //Player.update( timeDelta );
             //this.enemy.update ( timeDelta );   
             WORLD.update( timeDelta );
         },

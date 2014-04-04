@@ -1,4 +1,4 @@
-define( ["jquery","threeCore", "physijs", "bullet", "player"], function ( $, THREE, Physijs, BULLET, Player ) {
+define( ["jquery", "threeCore", "physijs", "bullet"], function ( $, THREE, Physijs, BULLET ) {
     Physijs.scripts.worker = 'js/libs/physijs_worker.js';
     Physijs.scripts.ammo = 'ammo.js';
 
@@ -65,7 +65,7 @@ define( ["jquery","threeCore", "physijs", "bullet", "player"], function ( $, THR
             //this.camera.position.set( 0, 1.5, 0 );
 
             // CONTROLS
-            this.controls = Player.controls;
+            //this.controls = Player.controls;
 
             // Orbit control                
             /*this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement );
@@ -226,6 +226,13 @@ define( ["jquery","threeCore", "physijs", "bullet", "player"], function ( $, THR
             this.camera.updateProjectionMatrix();
             this.renderer.setSize( inWidth, inHeight );
             this.canvas.html( this.renderer.domElement );
+        },
+
+        addObjectsToScene: function( arrayOfObjects )
+        {
+            for ( var i=0; i < arrayOfObjects.length; i++ ) {
+                this.scene.add(arrayOfObjects[i]);
+            }
         }
     };
     return WORLD;

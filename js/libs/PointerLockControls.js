@@ -4,7 +4,7 @@
  */
 
 define( ["threeCore", "player", "bullet"], function ( THREE, Player, BULLET ) {
-	var PointerLockControls = function (player, WORLD) {
+	var PointerLockControls = function (player) {
 
 		var scope = this;
 		var height = player.camera.position.y;
@@ -122,7 +122,7 @@ define( ["threeCore", "player", "bullet"], function ( THREE, Player, BULLET ) {
 			if (event.which === 1 && scope.enabled === true) { // Left click only
 				var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
 				var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
-				BULLET.createBullet( movementX, movementY, player, WORLD);
+				BULLET.createBullet( movementX, movementY, player);
 			}
 		};
 

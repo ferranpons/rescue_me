@@ -1,4 +1,4 @@
-define( ["threeCore", "world", "physijs", "conversor", "pointerLockControls", "enemy"], function ( THREE, WORLD, Physijs, CONVERSOR, PointerLockControls, Enemy ) {
+define( ["order!threeCore", "order!physijs", "order!conversor", "order!enemy"], function ( THREE, Physijs, CONVERSOR, Enemy ) {
 	var loader = new THREE.ObjectLoader();
 	var anEnemy = new Enemy();
 	var newPosition = new THREE.Vector3(100, 10, 100);
@@ -7,6 +7,13 @@ define( ["threeCore", "world", "physijs", "conversor", "pointerLockControls", "e
 	var WORLD = {scene: new Physijs.Scene({ fixedTimeStep: 1 / 120 })};
 	var clock = new THREE.Clock();
 	var timeDelta = clock.getDelta();
+
+	testStart(function() {
+		anEnemy.initializeWith( newPosition, newSize, newSpeed );
+	});
+
+	testDone(function() {
+	});
 
 
 	test( "Enemy class Exists", function() {
@@ -18,7 +25,7 @@ define( ["threeCore", "world", "physijs", "conversor", "pointerLockControls", "e
 	});
 
 	test( "Enemy has a position", function() {
-		deepEqual( anEnemy.position, new THREE.Vector3(0,0,0), "Enemy hasn't got a position" );
+		deepEqual( anEnemy.position, newPosition, "Enemy hasn't got a position" );
 	});
 
 	test( "Set a new position to Enemy", function() {
@@ -27,12 +34,11 @@ define( ["threeCore", "world", "physijs", "conversor", "pointerLockControls", "e
 	});
 
 	test( "Enemy has size", function() {
-		var size = { x: 1, y: 1, z: 1 };
-		deepEqual( anEnemy.size, size, "Enemy hasn't got a size." );
+		deepEqual( anEnemy.size, newSize, "Enemy hasn't got a size." );
 	});
 
 	test( "Enemy has speed", function() {
-		equal( anEnemy.speed, 1, "Enemy hasn't got speed." );
+		equal( anEnemy.speed, newSpeed, "Enemy hasn't got speed." );
 	});
 
 	test( "Enemy Physijs Mesh Exists", function() {
@@ -45,14 +51,6 @@ define( ["threeCore", "world", "physijs", "conversor", "pointerLockControls", "e
 
 	test( "Enemy Physijs Mesh has a material", function() {
 		notStrictEqual( anEnemy.physijsMeshMaterial, undefined, "Physijs Mesh does not exist." );
-	});
-
-	test( "Enemy setup main values", function() {
-		anEnemy.initializeWith( newPosition, newSize, newSpeed );
-		deepEqual( anEnemy.position, newPosition, "Enemy's new position not correct." );
-		deepEqual( anEnemy.size, newSize, "Enemy's new size not correct." );
-		equal( anEnemy.speed, newSpeed, "Enemy's new speed not correct." );
-		ok( anEnemy.physijsMesh != null, "Enemy's Physijs Mesh not correct." );
 	});
 
 	test( "Enemy has a Grouped Mesh without Physijs Shape", function() {

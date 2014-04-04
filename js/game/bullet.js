@@ -1,4 +1,4 @@
-define( ["threeCore", "world"], function ( THREE, WORLD ) {
+define( ["threeCore"], function ( THREE ) {
 	var BULLET = 
 	{
 		bullets: [],
@@ -7,7 +7,7 @@ define( ["threeCore", "world"], function ( THREE, WORLD ) {
 		projector: new THREE.Projector(),
 		moveSpeed: 500,
 
-		createBullet: function (movementX, movementY, fromObject, WORLD) {
+		createBullet: function (movementX, movementY, fromObject) {
 			var vector = new THREE.Vector3(movementX, movementY, 1);
 			var sphere = new THREE.Mesh(this.sphereGeo, this.sphereMaterial);
 			
@@ -16,7 +16,7 @@ define( ["threeCore", "world"], function ( THREE, WORLD ) {
 			sphere.ray = new THREE.Ray( fromObject.position, vector.sub(fromObject.position).normalize() );
 
 			this.bullets.push(sphere);
-			WORLD.scene.add(sphere);
+			//WORLD.scene.add(sphere);
 		},
 
 		update: function( timeDelta ) {
