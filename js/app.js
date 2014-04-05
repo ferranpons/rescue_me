@@ -45,7 +45,7 @@ requirejs.config({
 });
 
 
-define( ["order!three", "order!stats", "order!game", "order!world"], function ( THREE, Stats,  GAME, WORLD) {
+define( ["order!three", "order!physijs", "order!stats", "order!game", "order!world"], function ( THREE, Physijs, Stats,  GAME, World) {
     var app = {
         stats: new Stats(),
         init: function() {

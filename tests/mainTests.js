@@ -52,8 +52,8 @@ require.config({
     }
 });
 
-require(["order!QUnit", "order!three", "order!playerTests", "order!enemyTests"],
-	function(QUnit, THREE, playerTests, enemyTests) {
+require(["order!QUnit", "order!three", "order!worldTests", "order!playerTests", "order!enemyTests"],
+	function(QUnit, THREE, worldTests, playerTests, enemyTests) {
 
         QUnit.load();
         QUnit.start();
