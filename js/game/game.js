@@ -21,9 +21,6 @@ define( ["order!threeCore", "order!meshes", "order!world", "order!player", "orde
             this.gameWorld.initializeWith( canvasId );
             this.gameWorld.createNewSceneWithObjects([light, closeLight, ambientLight, skyBox, terrain, Player.physijsMesh, Player.groupedMesh, firstEnemy]);
             this.gameWorld.setNewCamera( Player.camera );
-
-            //this.enemy = new Enemy();
-            //this.enemy.initializeWith( new THREE.Vector3(100,10,100), { x: 1, y: 1, z: 1 }, 2 );
         },
         
         update: function()

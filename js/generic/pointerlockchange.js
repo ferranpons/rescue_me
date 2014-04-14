@@ -1,16 +1,16 @@
-define( ["world", "blocker", "instructions"], function ( WORLD, blocker, instructions ) {
+define( ["player", "blocker", "instructions"], function ( Player, blocker, instructions ) {
 	var pointerlockchange = function ( event ) {
 		var element = document.body;
 		if ( document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element ) {
 
-			if (WORLD.controls != null) {
-				WORLD.controls.enabled = true;
+			if (Player.controls != null) {
+				Player.controls.enabled = true;
 				blocker.style.display = 'none';
 			}
 		} else {
 
-			if (WORLD.controls != null) {
-				WORLD.controls.enabled = false;
+			if (Player.controls != null) {
+				Player.controls.enabled = false;
 
 				blocker.style.display = '-webkit-box';
 				blocker.style.display = '-moz-box';
