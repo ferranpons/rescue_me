@@ -1,4 +1,4 @@
-define( ["order!threeCore", "order!physijs", "conversor", "pointerLockControls"], function ( THREE, Physijs, CONVERSOR, PointerLockControls ) {
+define( ["order!threeCore", "conversor", "pointerLockControls"], function ( THREE, CONVERSOR, PointerLockControls ) {
     var Player = 
     {
         health: 100,
@@ -8,7 +8,7 @@ define( ["order!threeCore", "order!physijs", "conversor", "pointerLockControls"]
 
         physijsMesh: new THREE.Object3D(),
         physijsMeshGeometry: new THREE.CubeGeometry( 1, 1, 1),
-        physijsMeshMaterial: Physijs.createMaterial( new THREE.MeshNormalMaterial(), .4, .6),
+        //physijsMeshMaterial: Physijs.createMaterial( new THREE.MeshNormalMaterial(), .4, .6),
 
         groupedMesh: new THREE.Object3D(),
         bodyMesh: null,
@@ -29,7 +29,7 @@ define( ["order!threeCore", "order!physijs", "conversor", "pointerLockControls"]
 
         loadAndCreateMeshes: function() {
             loader = new THREE.ObjectLoader();
-            this.createPhysijsMesh();
+            //this.createPhysijsMesh();
             this.loadBodyMesh(loader);
             this.loadWeaponMesh(loader);
         },
@@ -82,9 +82,9 @@ define( ["order!threeCore", "order!physijs", "conversor", "pointerLockControls"]
                 this.controls.isOnObject( false );
                 this.controls.update(timeDelta*1000);
 
-                this.physijsMesh.position.copy(this.position);
+                /*this.physijsMesh.position.copy(this.position);
                 this.physijsMesh.setAngularFactor({ x: 0, y: 0, z: 0 });
-                this.physijsMesh.__dirtyPosition = true;
+                this.physijsMesh.__dirtyPosition = true;*/
 
                 //this.camera.position.set(this.position.x, this.position.y + 5, this.position.z);
                 this.groupedMesh.position.set(this.position.x, this.position.y + 5, this.position.z);

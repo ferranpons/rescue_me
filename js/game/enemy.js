@@ -1,4 +1,4 @@
-define( ["order!threeCore", "order!physijs", "conversor"], function ( THREE, Physijs, CONVERSOR ) {
+define( ["order!threeCore", "conversor"], function ( THREE, CONVERSOR ) {
 
  return function Enemy () {
     var enemy = this;
@@ -10,7 +10,7 @@ define( ["order!threeCore", "order!physijs", "conversor"], function ( THREE, Phy
 
     this.physijsMesh = new THREE.Object3D();
     this.physijsMeshGeometry = new THREE.CubeGeometry( 1, 1, 1);
-    this.physijsMeshMaterial = Physijs.createMaterial( new THREE.MeshNormalMaterial(), .4, .6);
+    //this.physijsMeshMaterial = Physijs.createMaterial( new THREE.MeshNormalMaterial(), .4, .6);
 
     this.groupedMesh = new THREE.Object3D();
     this.bodyMesh = null;
@@ -27,14 +27,14 @@ define( ["order!threeCore", "order!physijs", "conversor"], function ( THREE, Phy
 
     this.loadAndCreateMeshes = function() {
         loader = new THREE.ObjectLoader();
-        this.createPhysijsMesh();
+        //this.createPhysijsMesh();
         this.loadBodyMesh(loader);
         this.loadWeaponMesh(loader);
     };
 
     this.createPhysijsMesh = function() {
         this.physijsMeshGeometry = new THREE.CubeGeometry( CONVERSOR.SizeTo3D( this.size.x ), CONVERSOR.SizeTo3D( this.size.y ), CONVERSOR.SizeTo3D( this.size.z ) );
-        this.physijsMesh = new Physijs.BoxMesh( this.physijsMeshGeometry, this.physijsMeshMaterial, 1 );
+        //this.physijsMesh = new Physijs.BoxMesh( this.physijsMeshGeometry, this.physijsMeshMaterial, 1 );
         this.physijsMesh.position.copy(this.position);
         this.physijsMesh.setAngularFactor({ x: 0, y: 0, z: 0 });
         this.physijsMesh.rotation.set( 0, 0, 0 );

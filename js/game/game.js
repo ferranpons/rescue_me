@@ -77,7 +77,7 @@ define( ["order!threeCore", "order!meshes", "order!world", "order!player", "orde
             var skyBox = new THREE.Mesh(
                 new THREE.SphereGeometry( 10000, 15, 15 ),
                 new THREE.MeshBasicMaterial( {
-                    map: THREE.ImageUtils.loadTexture( "assets/sky/Skydome.jpg" ),
+                    map: THREE.ImageUtils.loadTexture( "assets/sky/skydome.jpg" ),
                     color: 0xffffff,
                     side: THREE.DoubleSide
                 } )
