@@ -17,10 +17,14 @@ define( ["order!threeCore", "order!meshes", "order!world", "order!player", "orde
             var firstEnemy = new Enemy();
             firstEnemy.initializeWith( new THREE.Vector3(100,10,100), { x: 1, y: 1, z: 1 }, 2 );
 
+            this.createCrate();
+
             this.gameWorld = new World();
             this.gameWorld.initializeWith( canvasId );
-            this.gameWorld.createNewSceneWithObjects([light, closeLight, ambientLight, skyBox, terrain, Player.physijsMesh, Player.groupedMesh, firstEnemy]);
+            this.gameWorld.createNewSceneWithObjects([light, closeLight, ambientLight, skyBox, terrain, Player.physijsMesh, Player.groupedMesh, firstEnemy.groupedMesh]);
             this.gameWorld.setNewCamera( Player.camera );
+
+            
         },
         
         update: function()
@@ -28,6 +32,42 @@ define( ["order!threeCore", "order!meshes", "order!world", "order!player", "orde
             var timeDelta = this.clock.getDelta();
             Player.update( timeDelta );   
             this.gameWorld.update( timeDelta );
+        },
+
+        createCrate: function()
+        {
+            var manager = new THREE.LoadingManager();
+            manager.onProgress = function ( item, loaded, total ) {
+
+                console.log( item, loaded, total );
+
+            };
+
+            var texture = new THREE.Texture();
+
+            var imageLoader = new THREE.ImageLoader( manager );
+            imageLoader.load( 'assets/models/CrateSmallTextures/Props.png', function ( image ) {
+
+                    texture.image = image;
+                    texture.needsUpdate = true;
+
+            } );
+
+            var objectLoader = new THREE.ObjectLoader();
+            objectLoader.load('assets/models/CrateSmall.json', function (loadedMesh) {
+                loadedMesh.traverse( function ( child ) {
+
+                        if ( child instanceof THREE.Mesh ) {
+
+                            child.material.map = texture;
+
+                        }
+
+                } );
+                loadedMesh.position.set(100, 20, 100);
+                loadedMesh.scale.set(30,30,30);
+                GAME.gameWorld.scene.add(loadedMesh);
+            });
         },
 
         createLight: function()

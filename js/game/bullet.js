@@ -17,6 +17,7 @@ define( ["threeCore"], function ( THREE ) {
 
 			this.bullets.push(sphere);
 			//WORLD.scene.add(sphere);
+			return sphere;
 		},
 
 		update: function( timeDelta ) {

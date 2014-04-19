@@ -1,10 +1,10 @@
-define( ["order!threeCore", "order!physijs", "order!conversor", "order!enemy"], function ( THREE, Physijs, CONVERSOR, Enemy ) {
+define( ["order!threeCore", "order!conversor", "order!enemy"], function ( THREE, CONVERSOR, Enemy ) {
 	var loader = new THREE.ObjectLoader();
 	var anEnemy = new Enemy();
 	var newPosition = new THREE.Vector3(100, 10, 100);
 	var newSize = { x: 2, y: 1, z: 2 };
 	var newSpeed = 2;
-	var WORLD = {scene: new Physijs.Scene({ fixedTimeStep: 1 / 120 })};
+	//var WORLD = {scene: new Physijs.Scene({ fixedTimeStep: 1 / 120 })};
 	var clock = new THREE.Clock();
 	var timeDelta = clock.getDelta();
 
@@ -41,7 +41,7 @@ define( ["order!threeCore", "order!physijs", "order!conversor", "order!enemy"], 
 		equal( anEnemy.speed, newSpeed, "Enemy hasn't got speed." );
 	});
 
-	test( "Enemy - Physijs Mesh Exists", function() {
+	/*test( "Enemy - Physijs Mesh Exists", function() {
 		notStrictEqual( anEnemy.physijsMesh, undefined, "Physijs Mesh does not exist." );
 	});
 
@@ -51,7 +51,7 @@ define( ["order!threeCore", "order!physijs", "order!conversor", "order!enemy"], 
 
 	test( "Enemy - Physijs Mesh has a material", function() {
 		notStrictEqual( anEnemy.physijsMeshMaterial, undefined, "Physijs Mesh does not exist." );
-	});
+	});*/
 
 	test( "Enemy - has a Grouped Mesh without Physijs Shape", function() {
 		notStrictEqual( anEnemy.groupedMesh, undefined, "Enemy hasn't got a Grouped Mesh." );
@@ -65,9 +65,9 @@ define( ["order!threeCore", "order!physijs", "order!conversor", "order!enemy"], 
 		notStrictEqual( anEnemy.weaponMesh, undefined, "Enemy hasn't got a Body Mesh." );
 	});
 
-	test( "Enemy - can add 3D Objects to World", function() {
+	/*test( "Enemy - can add 3D Objects to World", function() {
 		ok( anEnemy.addObjectsToWorld() != NaN, "Enemy class can't add objects to World" );
-	});
+	});*/
 
 	test( "Enemy - can update its objects", function() {
 		ok( anEnemy.update( timeDelta ) != NaN, "Enemy class can't add objects to World" );

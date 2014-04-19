@@ -26,6 +26,7 @@ requirejs.config({
         //physijs: 'libs/physi',
         stats: 'libs/stats.min',
         objectLoader: 'libs/ObjectLoader',
+        objmtlloader: 'libs/OBJMTLLoader',
         pointerLockControls: 'libs/PointerLockControls',
 
         utils: 'game/utils',

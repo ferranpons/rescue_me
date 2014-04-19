@@ -1,10 +1,10 @@
-define( ["order!threeCore", "order!physijs", "order!conversor", "order!player", "order!pointerLockControls"], function ( THREE, Physijs, CONVERSOR, Player, PointerLockControls ) {
+define( ["order!threeCore", "order!conversor", "order!player", "order!pointerLockControls"], function ( THREE, CONVERSOR, Player, PointerLockControls ) {
 	var loader = new THREE.ObjectLoader();
 	var newPosition = new THREE.Vector3(100, 10, 100);
 	var newRotation = new THREE.Euler( 0, 0, 0, "YXZ" );;
 	var newSize = { x: 2, y: 1, z: 2 };
 	var newSpeed = 2;
-	var WORLD = {scene: new Physijs.Scene({ fixedTimeStep: 1 / 120 })};
+	//var WORLD = {scene: new Physijs.Scene({ fixedTimeStep: 1 / 120 })};
 	var clock = new THREE.Clock();
 	var timeDelta = clock.getDelta();
 
@@ -40,7 +40,7 @@ define( ["order!threeCore", "order!physijs", "order!conversor", "order!player", 
 		equal( Player.speed, newSpeed, "Player hasn't got speed." );
 	});
 
-	test( "Player - Physijs Mesh Exists", function() {
+	/*test( "Player - Physijs Mesh Exists", function() {
 		notStrictEqual( Player.physijsMesh, undefined, "Physijs Mesh does not exist." );
 	});
 
@@ -50,7 +50,7 @@ define( ["order!threeCore", "order!physijs", "order!conversor", "order!player", 
 
 	test( "Player - Physijs Mesh has a material", function() {
 		notStrictEqual( Player.physijsMeshMaterial, undefined, "Physijs Mesh does not exist." );
-	});
+	});*/
 
 	test( "Player - has a Grouped Mesh without Physijs Shape", function() {
 		notStrictEqual( Player.groupedMesh, undefined, "Player hasn't got a Grouped Mesh." );
