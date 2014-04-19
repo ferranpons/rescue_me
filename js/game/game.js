@@ -1,8 +1,10 @@
-define( ["order!threeCore", "order!meshes", "order!world", "order!player", "order!enemy"], function ( THREE, MESHES, World, Player, Enemy ) {
+define( ["order!threeCore", "order!meshes", "order!world", "order!player", "order!enemy", "order!bullet"], function ( THREE, MESHES, World, Player, Enemy, Bullet ) {
     var GAME =
     {
         gameWorld: null,
         clock: null,
+        bullets: [],
+        enemies: [],
         
         Initialize: function( canvasId )
         {
@@ -16,6 +18,7 @@ define( ["order!threeCore", "order!meshes", "order!world", "order!player", "orde
             var terrain = this.createTerrain();
             var firstEnemy = new Enemy();
             firstEnemy.initializeWith( new THREE.Vector3(100,10,100), { x: 1, y: 1, z: 1 }, 2 );
+            this.enemies.push(firstEnemy);
 
             this.createCrate();
 
@@ -24,7 +27,7 @@ define( ["order!threeCore", "order!meshes", "order!world", "order!player", "orde
             this.gameWorld.createNewSceneWithObjects([light, closeLight, ambientLight, skyBox, terrain, Player.physijsMesh, Player.groupedMesh, firstEnemy.groupedMesh]);
             this.gameWorld.setNewCamera( Player.camera );
 
-            
+            document.addEventListener( 'click', this.onClick, false);
         },
         
         update: function()
@@ -32,6 +35,55 @@ define( ["order!threeCore", "order!meshes", "order!world", "order!player", "orde
             var timeDelta = this.clock.getDelta();
             Player.update( timeDelta );   
             this.gameWorld.update( timeDelta );
+            for (var i = this.bullets.length-1; i >= 0; i--) {
+                this.bullets[i].update(timeDelta);
+
+                /*for (var j = this.enemies.length-1; j >= 0; j--) {
+                    var enemy = this.enemies[j];
+                    var vertices = enemy.bodyMesh.geometry.vertices[0];
+                    var enemyPosition = enemy.position;
+                    var bulletPosition = this.bullets[i].bullet.position;
+                    var x = Math.abs(vertices.x), z = Math.abs(vertices.z);
+                    if (bulletPosition.x < enemyPosition.x + x && bulletPosition.x > enemyPosition.x - x &&
+                            bulletPosition.z < enemyPosition.z + z && bulletPosition.z > enemyPosition.z - z &&
+                            this.bullets[i].owner != enemy) {
+                        this.bullets.splice(i, 1);
+                        scene.remove(this.bullets[i]);
+                        enemy.health -= 10;
+                        var color = enemy.material.color, percent = enemy.health / 100;
+                        enemy.material.color.setRGB(
+                                percent * color.r,
+                                percent * color.g,
+                                percent * color.b
+                        );
+                        hit = true;
+                        break;
+                    }
+                }*/
+
+                /*for (var j = this.enemies.length-1; j >= 0; j--) {
+                    var enemy = this.enemies[j];
+                    var box = enemy.bodyMesh.geometry.boundingSphere;
+                    var intersects = this.bullets[i].ray.intersectBox(box);
+
+                    if (intersects.length > 0)
+                        console.log(intersects);
+                }*/
+            }
+
+
+        },
+
+        onClick: function( event ) {
+            event.preventDefault;
+            if (event.which === 1 ) { // Left click only
+                var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+                var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+                newBullet = new Bullet();
+                newBullet.initialize(movementX, movementY, Player);
+                GAME.bullets.push(newBullet);    
+                GAME.gameWorld.scene.add(newBullet.bullet);
+            }
         },
 
         createCrate: function()

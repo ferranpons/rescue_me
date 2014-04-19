@@ -12,7 +12,7 @@ requirejs.config({
         'player': { exports: 'Player' },
         'enemy': { exports: 'Enemy' },
         'meshes': { exports: 'MESHES' },
-        'bullet': { exports: 'BULLET' },
+        'bullet': { exports: 'Bullet' },
 
         'blocker': { exports: 'blocker' },
         'instructions': { exports: 'instructions' },

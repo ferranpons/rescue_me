@@ -3,7 +3,7 @@
  * @author ponsaffair / http://www.ferranpons.com/
  */
 
-define( ["threeCore", "player", "bullet"], function ( THREE, Player, BULLET ) {
+define( ["threeCore", "player"], function ( THREE, Player ) {
 	var PointerLockControls = function (player) {
 
 		var scope = this;
@@ -122,14 +122,13 @@ define( ["threeCore", "player", "bullet"], function ( THREE, Player, BULLET ) {
 			if (event.which === 1 && scope.enabled === true) { // Left click only
 				var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
 				var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
-				BULLET.createBullet( movementX, movementY, player);
 			}
 		};
 
 		document.addEventListener( 'mousemove', onMouseMove, false );
 		document.addEventListener( 'keydown', onKeyDown, false );
 		document.addEventListener( 'keyup', onKeyUp, false );
-		document.addEventListener( 'click', onClick, false);
+		//document.addEventListener( 'click', onClick, false);
 
 		this.enabled = false;
 

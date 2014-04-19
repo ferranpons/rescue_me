@@ -43,7 +43,7 @@ require.config({
         'player': { exports: 'Player' },
         'enemy': { exports: 'Enemy' },
         'meshes': { exports: 'MESHES' },
-        'bullet': { exports: 'BULLET' },
+        'bullet': { exports: 'Bullet' },
 
         'blocker': { exports: 'blocker' },
         'instructions': { exports: 'instructions' },
@@ -52,7 +52,7 @@ require.config({
     }
 });
 
-require(["order!QUnit", "order!three", "order!worldTests", "order!playerTests", "order!enemyTests"],
+require(["order!QUnit", "order!three", "order!worldTests", "order!playerTests", "order!enemyTests", "order!bulletTests"],
 	function(QUnit, THREE, worldTests, playerTests, enemyTests) {
 
         QUnit.load();

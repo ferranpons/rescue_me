@@ -1,6 +1,42 @@
 define( ["threeCore"], function ( THREE ) {
-	var BULLET = 
-	{
+	return function Bullet () {
+		this.material = new THREE.MeshBasicMaterial({color: 0x333333});
+		this.geometry = new THREE.SphereGeometry(2, 6, 6);
+		this.projector = new THREE.Projector();
+		this.speed = 500;
+		this.bullet = null;
+		this.ray = null;
+
+		this.initialize = function (movementX, movementY, fromObject) {
+			var vector = new THREE.Vector3(movementX, movementY, 1);
+			var sphere = new THREE.Mesh(this.geometry, this.material);
+			
+			this.projector.unprojectVector( vector, fromObject.camera );
+			sphere.position.copy( fromObject.position );
+			sphere.ray = new THREE.Ray( fromObject.position, vector.sub(fromObject.position).normalize() );
+			this.ray = new THREE.Ray( fromObject.position, vector.sub(fromObject.position).normalize() );
+			this.bullet = sphere;
+		};
+
+		this.update = function( timeDelta ) {
+			var currentSpeed = timeDelta * this.speed;
+			var direction = this.bullet.ray.direction;
+			
+			var hit = false;
+			
+			if (!hit) {
+				this.bullet.translateX(currentSpeed * direction.x);
+				this.bullet.translateY(currentSpeed * direction.y);
+				this.bullet.translateZ(currentSpeed * direction.z);
+			}
+		};
+	}
+} );
+
+
+/*
+
+
 		bullets: [],
 		sphereMaterial: new THREE.MeshBasicMaterial({color: 0x333333}),
 		sphereGeo: new THREE.SphereGeometry(2, 6, 6),
@@ -34,12 +70,10 @@ define( ["threeCore"], function ( THREE ) {
 				}
 			}
 		}
-	}
-	return BULLET;
-} );
 
 
-/*
+
+
 			if (checkWallCollision(p)) {
 				bullets.splice(i, 1);
 				scene.remove(b);
