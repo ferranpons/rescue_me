@@ -35,43 +35,22 @@ define( ["order!threeCore", "order!meshes", "order!world", "order!player", "orde
             var timeDelta = this.clock.getDelta();
             Player.update( timeDelta );   
             this.gameWorld.update( timeDelta );
+
             for (var i = this.bullets.length-1; i >= 0; i--) {
                 this.bullets[i].update(timeDelta);
 
-                /*for (var j = this.enemies.length-1; j >= 0; j--) {
+                for (var j = this.enemies.length-1; j >= 0; j--) {
                     var enemy = this.enemies[j];
-                    var vertices = enemy.bodyMesh.geometry.vertices[0];
-                    var enemyPosition = enemy.position;
-                    var bulletPosition = this.bullets[i].bullet.position;
-                    var x = Math.abs(vertices.x), z = Math.abs(vertices.z);
-                    if (bulletPosition.x < enemyPosition.x + x && bulletPosition.x > enemyPosition.x - x &&
-                            bulletPosition.z < enemyPosition.z + z && bulletPosition.z > enemyPosition.z - z &&
-                            this.bullets[i].owner != enemy) {
-                        this.bullets.splice(i, 1);
-                        scene.remove(this.bullets[i]);
-                        enemy.health -= 10;
-                        var color = enemy.material.color, percent = enemy.health / 100;
-                        enemy.material.color.setRGB(
-                                percent * color.r,
-                                percent * color.g,
-                                percent * color.b
-                        );
-                        hit = true;
-                        break;
+                    var box = enemy.bodyMesh.geometry;
+                    var ray = new THREE.Raycaster( this.bullets[i].bullet.position, this.bullets[i].vector.clone().normalize() );
+                    var collisions = ray.intersectObjects( [enemy.bodyMesh] );
+
+                    if (collisions.length > 0 && collisions[0].distance < this.bullets[i].vector.length()) {
+                        enemy.health -= 20;
+                        console.log("Hit! Enemy Health:" + enemy.health );
                     }
-                }*/
-
-                /*for (var j = this.enemies.length-1; j >= 0; j--) {
-                    var enemy = this.enemies[j];
-                    var box = enemy.bodyMesh.geometry.boundingSphere;
-                    var intersects = this.bullets[i].ray.intersectBox(box);
-
-                    if (intersects.length > 0)
-                        console.log(intersects);
-                }*/
+                }
             }
-
-
         },
 
         onClick: function( event ) {
