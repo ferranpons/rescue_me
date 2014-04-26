@@ -5,6 +5,7 @@ requirejs.config({
         'stats': { exports: 'Stats' },
         //'physijs': { exports: 'Physijs' },
         'pointerLockControls': { exports: 'PointerLockControls' },
+        'gamepad': { exports: 'Gamepad' },
 
         'utils': { exports: 'utils' },
         'game': { exports: 'GAME' },
@@ -28,6 +29,7 @@ requirejs.config({
         objectLoader: 'libs/ObjectLoader',
         objmtlloader: 'libs/OBJMTLLoader',
         pointerLockControls: 'libs/PointerLockControls',
+        gamepad: 'libs/gamepad',
 
         utils: 'game/utils',
         game: 'game/game',

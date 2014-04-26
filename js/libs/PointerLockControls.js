@@ -3,7 +3,7 @@
  * @author ponsaffair / http://www.ferranpons.com/
  */
 
-define( ["threeCore", "player"], function ( THREE, Player ) {
+define( ["threeCore", "player", "gamepad"], function ( THREE, Player ) {
 	var PointerLockControls = function (player) {
 
 		var scope = this;
@@ -194,6 +194,33 @@ define( ["threeCore", "player"], function ( THREE, Player ) {
 
 				velocity.y = Math.max( 0, velocity.y );
 
+			}
+
+			if (Gamepad.supported) 
+			{
+				var pads = Gamepad.getStates();
+				var pad = pads[0]; // assume only 1 player.
+				if (pad) 
+				{
+					if (Math.abs(pad.leftStickX) > 0.2)
+						velocity.x += velocityFactor * delta * pad.leftStickX
+					if (Math.abs(pad.leftStickY) > 0.2)
+						velocity.z += velocityFactor * delta * pad.leftStickY;
+
+					if (Math.abs(pad.rightStickX) > 0)
+						pitchObject.rotation.x -= 0.02 * pad.rightStickY;
+					if (Math.abs(pad.rightStickY) > 0)
+						yawObject.rotation.y -= 0.02 * pad.rightStickX
+
+					if ( pad.dpadUp )
+						velocity.z -= velocityFactor * delta;
+					if ( pad.dpadDown )
+						velocity.z += velocityFactor * delta;
+					if ( pad.dpadLeft )
+						velocity.x -= velocityFactor * delta;
+					if ( pad.dpadRight )
+						velocity.x += velocityFactor * delta;						
+		        }
 			}
 
 			yawObject.translateX( velocity.x );

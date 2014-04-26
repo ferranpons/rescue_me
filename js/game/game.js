@@ -1,4 +1,4 @@
-define( ["order!threeCore", "order!meshes", "order!world", "order!player", "order!enemy", "order!bullet"], function ( THREE, MESHES, World, Player, Enemy, Bullet ) {
+define( ["order!threeCore", "order!meshes", "order!world", "order!player", "order!enemy", "order!bullet","order!gamepad"], function ( THREE, MESHES, World, Player, Enemy, Bullet ) {
     var GAME =
     {
         gameWorld: null,
@@ -41,13 +41,28 @@ define( ["order!threeCore", "order!meshes", "order!world", "order!player", "orde
 
                 for (var j = this.enemies.length-1; j >= 0; j--) {
                     var enemy = this.enemies[j];
-                    var box = enemy.bodyMesh.geometry;
                     var ray = new THREE.Raycaster( this.bullets[i].bullet.position, this.bullets[i].vector.clone().normalize() );
                     var collisions = ray.intersectObjects( [enemy.bodyMesh] );
 
                     if (collisions.length > 0 && collisions[0].distance < this.bullets[i].vector.length()) {
                         enemy.health -= 20;
                         console.log("Hit! Enemy Health:" + enemy.health );
+                    }
+                }
+            }
+
+            if (Gamepad.supported) 
+            {
+                var pads = Gamepad.getStates();
+                var pad = pads[0]; // assume only 1 player.
+                if (pad) 
+                {
+                    if (pad.rightShoulder1)
+                    {
+                        var point = new THREE.Vector3( 0, 0, 0 );
+                        point.applyQuaternion( Player.camera.quaternion );
+                        this.shoot(point.x, point.y);
+                        console.log("Shoot!");
                     }
                 }
             }
@@ -58,11 +73,15 @@ define( ["order!threeCore", "order!meshes", "order!world", "order!player", "orde
             if (event.which === 1 ) { // Left click only
                 var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
                 var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
-                newBullet = new Bullet();
-                newBullet.initialize(movementX, movementY, Player);
-                GAME.bullets.push(newBullet);    
-                GAME.gameWorld.scene.add(newBullet.bullet);
+                GAME.shoot(movementX, movementY);
             }
+        },
+
+        shoot: function ( movementX, movementY ) {
+            newBullet = new Bullet();
+            newBullet.initialize(movementX, movementY, Player);
+            GAME.bullets.push(newBullet);    
+            GAME.gameWorld.scene.add(newBullet.bullet);
         },
 
         createCrate: function()
