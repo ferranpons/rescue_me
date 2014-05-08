@@ -186,3 +186,28 @@ body {
     -o-background-size: cover;
     background-size: cover;
 }
+
+
+.ui-player-stats
+{
+    position: absolute;
+    bottom:100px;
+    left:50px;
+    -webkit-perspective: 800px;
+    -moz-perspective: 800px;
+    -o-perspective: 800px;
+    perspective: 800px;
+    
+}
+
+.ui-player-stats figure
+{
+    display: block;
+    float:left;
+    width:200px;
+    height:100px;
+    /*background-color:white;*/
+    transform: rotateY(25deg) rotateZ(-3deg);
+    -ms-transform: rotateY(25deg) rotateZ(-3deg); /* IE 9 */
+    -webkit-transform: rotateY(25deg) rotateZ(-3deg); /* Opera, Chrome, and Safari */
+}
