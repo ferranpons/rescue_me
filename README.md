@@ -1,10 +1,12 @@
 Rescue Me
 =========
 
-<img src="http://divinitycomputing.com/wp-content/uploads/2015/12/threejs.png" align="left" width="168px" height="168px"/>
+<img src="rescueme_github.png" align="left" height="168px"/>
 <img align="left" width="0" height="168px" hspace="10"/>
 
 *A WebGL game experiment using Three.js, Physijs, and other libs*
+
+<br/><br/>
 
 The main Objective of this project is learn 3D through a little video game, that will include almost all the techniques used in the industry. Like physics, in-game cinematics, animated characters, dialogues, GUI, etc.
 
