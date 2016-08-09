@@ -10,6 +10,9 @@ require.config({
         stats: '../../js/libs/stats.min',
         objectLoader: '../../js/libs/ObjectLoader',
         pointerLockControls: '../../js/libs/PointerLockControls',
+        gamepad: '../../js/libs/gamepad',
+        bacon: '../../js/libs/Bacon.min.js',
+
 
         conversor: '../../js/game/conversor',
         game: '../../js/game/game',
@@ -36,6 +39,8 @@ require.config({
         'stats': { exports: 'Stats' },
         'physijs': { exports: 'Physijs' },
         'pointerLockControls': { exports: 'PointerLockControls' },
+        'gamepad': { exports: 'Gamepad' },
+        'bacon' : { exports: 'Bacon' },
 
         'conversor': { exports: 'CONVERSOR' },
         'game': { exports: 'GAME' },

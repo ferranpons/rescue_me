@@ -85,4 +85,19 @@ define( ["order!threeCore", "order!conversor", "order!player", "order!pointerLoc
 	test( "Player - can create new controls object", function() {
 		ok( Player.createControls() != NaN, "Player class can't add objects to World" );
 	});
+
+	test( "Player - has weapon types to choose", function() {
+		ok( Player.weaponTypes != undefined, "Player hasn't got wepons to choose" );
+	});
+
+	test( "Player - has a knife as a weapon", function() {
+		Player.setWeapon(Player.weaponTypes.Knife);
+		equal( Player.weapon, Player.weaponTypes.Knife, "Player hasn't got a knife" );
+	});
+
+	test( "Player - has ammo for Pistol", function() {
+		Player.setWeapon(Player.weaponTypes.Pistol);
+		equal( Player.weapon.ammo, 150, "Player hasn't got ammo for Pistol" );
+		equal( Player.weapon.ammoInClip, 15, "Player hasn't got 15 rounds in clip");
+	});
 } );

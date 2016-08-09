@@ -5,6 +5,9 @@ define( ["order!threeCore", "conversor", "pointerLockControls"], function ( THRE
         position: new THREE.Vector3(0,0,0),
         size: { x: 1, y: 1, z: 1 },
         speed: 1,
+        weapon: undefined,
+
+        weaponTypes: { "Hands": {}, "Pistol": {"clipLength": 15, "ammo": 150, "ammoInClip": 15}, "Shotgun": {"clipLength" : 5, "ammo": 25, "ammoInClip": 5}, "Rifle": {"clipLength" : 30, "ammo": 60, "ammoInClip": 30}, "Knife": {} },
 
         physijsMesh: new THREE.Object3D(),
         physijsMeshGeometry: new THREE.CubeGeometry( 1, 1, 1),
@@ -21,6 +24,7 @@ define( ["order!threeCore", "conversor", "pointerLockControls"], function ( THRE
             this.setPosition(newPosition);
             this.size = newSize;
             this.speed = newSpeed;
+            this.weapon = this.weaponTypes.Hands;
             this.groupedMesh.position.copy(this.position);
             this.createCamera();
             this.createControls();
@@ -75,6 +79,18 @@ define( ["order!threeCore", "conversor", "pointerLockControls"], function ( THRE
 
         setCameraRotation: function ( newRotation ) {
             this.camera.rotation.copy( newRotation );
+        },
+
+        setWeapon: function ( weaponType ) {
+            this.weapon = weaponType;
+        },
+
+        getCurrentClips: function () {
+            for (var clip in this.clips) {
+                //if (this.weapon)
+            }
+
+            return this.clips;
         },
 
         update: function ( timeDelta ) {

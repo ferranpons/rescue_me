@@ -6,6 +6,7 @@ requirejs.config({
         //'physijs': { exports: 'Physijs' },
         'pointerLockControls': { exports: 'PointerLockControls' },
         'gamepad': { exports: 'Gamepad' },
+        'bacon' : { exports: 'Bacon' },
 
         'utils': { exports: 'utils' },
         'game': { exports: 'GAME' },
@@ -30,6 +31,7 @@ requirejs.config({
         objmtlloader: 'libs/OBJMTLLoader',
         pointerLockControls: 'libs/PointerLockControls',
         gamepad: 'libs/gamepad',
+        bacon: 'libs/Bacon.min.js',
 
         utils: 'game/utils',
         game: 'game/game',
